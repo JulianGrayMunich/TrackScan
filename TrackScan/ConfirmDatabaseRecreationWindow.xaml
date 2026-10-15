@@ -1,0 +1,60 @@
+﻿<Window x:Class="TrackScan.ConfirmDatabaseRecreationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Final Database Recreation Warning"
+        Height="230"
+        Width="520"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="LightGray"
+        FontFamily="Arial"
+        FontSize="12"
+        ShowInTaskbar="False">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Text="ARE YOU SURE??"/>
+
+        <TextBlock x:Name="txtRecreationWarning"
+                   Grid.Row="1"
+                   Margin="10,20,10,20"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Proceeding will permanently delete DBTrackGeometry and all data contained within it. The database and empty table structure will then be recreated."/>
+
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+
+            <Button x:Name="btnProceed"
+                    Width="120"
+                    Height="32"
+                    Margin="5"
+                    Content="Proceed"
+                    Click="btnProceed_Click"/>
+
+            <Button x:Name="btnAbort"
+                    Width="120"
+                    Height="32"
+                    Margin="5"
+                    Content="Abort"
+                    IsCancel="True"
+                    Click="btnAbort_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

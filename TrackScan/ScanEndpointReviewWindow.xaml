@@ -1,0 +1,35 @@
+﻿<Window x:Class="TrackScan.ScanEndpointReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Review track endpoint coordinates" Width="760" Height="445"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False"
+        Background="LightGray" FontFamily="Arial" FontSize="12">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtTrack" FontSize="15" FontWeight="Bold" Margin="0,0,0,8"/>
+        <TextBlock Grid.Row="1" Text="Review both endpoint pairs before saving. All values are in metres." Margin="0,0,0,10"/>
+        <DataGrid x:Name="gridCoordinates" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True"
+                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False"
+                  CanUserReorderColumns="False" HeadersVisibility="Column" RowHeight="26" ColumnHeaderHeight="28">
+            <DataGrid.Resources>
+                <Style x:Key="Number" TargetType="TextBlock"><Setter Property="TextAlignment" Value="Right"/><Setter Property="Margin" Value="4,0"/></Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Point" Binding="{Binding Point}" Width="165"/>
+                <DataGridTextColumn Header="Coordinate" Binding="{Binding Coordinate}" Width="80"/>
+                <DataGridTextColumn Header="Original" Binding="{Binding Original}" Width="*" ElementStyle="{StaticResource Number}"/>
+                <DataGridTextColumn Header="New" Binding="{Binding New}" Width="*" ElementStyle="{StaticResource Number}"/>
+                <DataGridTextColumn Header="Difference" Binding="{Binding Difference}" Width="*" ElementStyle="{StaticResource Number}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="3" Margin="0,10,0,12" TextWrapping="Wrap"
+                   Text="Difference = new minus original. Display: 3 decimals; storage: 4 decimals. All supplied endpoints are retained; no gauge adjustment is applied. Cancel leaves the editor and saved coordinates unchanged."/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnAccept" Content="Accept and save" Width="130" Height="28" Margin="0,0,10,0" Click="Accept_Click"/>
+            <Button Content="Cancel" Width="85" Height="28" IsCancel="True" IsDefault="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

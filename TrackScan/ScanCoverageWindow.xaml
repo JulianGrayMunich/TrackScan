@@ -1,0 +1,41 @@
+﻿<Window x:Class="TrackScan.ScanCoverageWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Scan coverage verification" Width="1000" Height="650" MinWidth="750" MinHeight="450" WindowStartupLocation="CenterOwner">
+ <Window.Resources><Style x:Key="CoordinateCell" TargetType="TextBlock"><Setter Property="TextAlignment" Value="Right"/></Style></Window.Resources>
+ <Grid Margin="14">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <TextBox x:Name="txtSource" IsReadOnly="True" BorderThickness="0" Background="Transparent" TextWrapping="Wrap" Margin="0,0,0,8"/>
+  <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0,0,0,10" Text="Plan coverage from occupied 0.5 m cells. Recesses, holes and separate areas are retained. Boundary points count as Inside. Fence spacing is at most 5 m, with closer vertices at corners. Inside does not guarantee usable returns within a railhead polygon. No database changes are made."/>
+  <TabControl Grid.Row="2">
+   <TabItem Header="Railhead coverage">
+    <DataGrid x:Name="gridCoverage" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" EnableRowVirtualization="True">
+     <DataGrid.Columns>
+      <DataGridTextColumn Header="Track" Binding="{Binding Track}" Width="*"/>
+      <DataGridTextColumn Header="Rail" Binding="{Binding Rail}" Width="90"/>
+      <DataGridTextColumn Header="Point" Binding="{Binding PointId}" Width="*"/>
+      <DataGridTextColumn Header="Easting" ElementStyle="{StaticResource CoordinateCell}" Binding="{Binding Easting, StringFormat=F3}" Width="120"/>
+      <DataGridTextColumn Header="Northing" ElementStyle="{StaticResource CoordinateCell}" Binding="{Binding Northing, StringFormat=F3}" Width="120"/>
+      <DataGridTextColumn Header="Railhead height" ElementStyle="{StaticResource CoordinateCell}" Binding="{Binding Height, StringFormat=F3}" Width="110"/>
+      <DataGridTextColumn Header="Coverage" Binding="{Binding Status}" Width="85"/>
+     </DataGrid.Columns>
+    </DataGrid>
+   </TabItem>
+   <TabItem Header="Boundary vertices">
+    <DataGrid x:Name="gridFence" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" EnableRowVirtualization="True">
+     <DataGrid.Columns>
+      <DataGridTextColumn Header="Ring" Binding="{Binding Ring}" Width="90"/>
+      <DataGridTextColumn Header="Vertex" Binding="{Binding Sequence}" Width="90"/>
+      <DataGridTextColumn Header="Easting" ElementStyle="{StaticResource CoordinateCell}" Binding="{Binding Easting, StringFormat=F3}" Width="*"/>
+      <DataGridTextColumn Header="Northing" ElementStyle="{StaticResource CoordinateCell}" Binding="{Binding Northing, StringFormat=F3}" Width="*"/>
+     </DataGrid.Columns>
+    </DataGrid>
+   </TabItem>
+  </TabControl>
+  <StackPanel Grid.Row="3" Margin="0,10,0,0">
+   <TextBlock x:Name="txtExportStatus" TextWrapping="Wrap" Text="CSV exports outer boundary rings only: Identifier, Ring, Vertex, E, N. Each ring is closed by repeating its first coordinate." Margin="0,0,0,8"/>
+   <DockPanel>
+    <Button x:Name="btnExportBoundary" Content="Export boundary CSV" Width="165" Height="28" DockPanel.Dock="Left" Click="btnExportBoundary_Click"/>
+    <Button Content="Close" IsCancel="True" Width="100" Height="28" HorizontalAlignment="Right"/>
+   </DockPanel>
+  </StackPanel>
+ </Grid>
+</Window>

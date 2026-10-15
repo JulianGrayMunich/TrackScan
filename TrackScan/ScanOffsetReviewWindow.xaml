@@ -1,0 +1,27 @@
+﻿<Window x:Class="TrackScan.ScanOffsetReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Stored railhead scan offsets" Width="1320" Height="580" MinWidth="900" MinHeight="380"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="12">
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <TextBlock x:Name="txtSummary" Margin="0,0,0,10" TextWrapping="Wrap"/>
+        <DataGrid x:Name="gridOffsets" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" EnableRowVirtualization="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Railhead point" Binding="{Binding PointId}" Width="150"/>
+                <DataGridTextColumn Header="Uncorrected Scan Height (m)" Binding="{Binding RawMean, StringFormat=F3, TargetNullValue=—}" Width="185"/>
+                <DataGridTextColumn Header="ToR height (m)" Binding="{Binding ReferenceHeight, StringFormat=F3}" Width="105"/>
+                <DataGridTextColumn Header="ScanOffset (m)" Binding="{Binding ScanOffset, StringFormat=F3, TargetNullValue=—}" Width="115"/>
+                <DataGridTextColumn Header="Points used" Binding="{Binding ScanPointCount}" Width="85"/>
+                <DataGridTextColumn Header="SE (m)" Binding="{Binding StandardError, StringFormat=F3, TargetNullValue=—}" Width="90"/>
+                <DataGridTextColumn Header="Max (m)" Binding="{Binding MaximumHeight, StringFormat=F3, TargetNullValue=—}" Width="95"/>
+                <DataGridTextColumn Header="Min (m)" Binding="{Binding MinimumHeight, StringFormat=F3, TargetNullValue=—}" Width="95"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="Save CSV" Width="105" Height="28" Margin="0,0,10,0" Click="SaveCsv_Click"/>
+            <Button Content="Close" Width="90" Height="28" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

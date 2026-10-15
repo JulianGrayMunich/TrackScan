@@ -1,0 +1,24 @@
+﻿<Window x:Class="TrackScan.ScanPointReviewWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="Review computed track points" Width="760" Height="540" MinWidth="650" MinHeight="350"
+ WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Background="LightGray" FontFamily="Arial" FontSize="12">
+ <Grid Margin="16">
+  <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+  <TextBlock x:Name="txtSummary" FontWeight="Bold" Margin="0,0,0,12"/>
+  <DataGrid x:Name="gridPoints" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" EnableRowVirtualization="True" EnableColumnVirtualization="True" HeadersVisibility="Column">
+   <DataGrid.Resources><Style x:Key="Number" TargetType="TextBlock"><Setter Property="TextAlignment" Value="Right"/><Setter Property="Margin" Value="4,0"/></Style></DataGrid.Resources>
+   <DataGrid.Columns>
+    <DataGridTextColumn Header="Point Name" Binding="{Binding PointName}" Width="2*"/>
+    <DataGridTextColumn Header="E (m)" Binding="{Binding Easting, StringFormat=F3}" Width="*" ElementStyle="{StaticResource Number}"/>
+    <DataGridTextColumn Header="N (m)" Binding="{Binding Northing, StringFormat=F3}" Width="*" ElementStyle="{StaticResource Number}"/>
+    <DataGridTextColumn Header="RailHead (m)" Binding="{Binding Height, StringFormat=F3}" Width="*" ElementStyle="{StaticResource Number}"/>
+   </DataGrid.Columns>
+  </DataGrid>
+  <TextBlock x:Name="txtSaveExplanation" Grid.Row="2" Margin="0,12" TextWrapping="Wrap" Text="Save stores these points in DBTrackScan and exports a CSV to your chosen location. Cancel discards this computation. Display: 3 decimals; saved values: 4 decimals."/>
+  <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+   <Button x:Name="btnSave" Content="Save" Width="95" Height="28" Margin="0,0,10,0" Click="Save_Click"/>
+   <Button x:Name="btnCancel" Content="Cancel" Width="95" Height="28" IsCancel="True" IsDefault="True"/>
+  </StackPanel>
+ </Grid>
+</Window>
